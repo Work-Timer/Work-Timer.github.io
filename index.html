@@ -1,0 +1,63 @@
+<!DOCTYPE html><html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width" />
+  <title>Work Timer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Work Timer</h1>
+  <button onclick="start();" id="start" class="btn">Start</button>
+  <button onclick="pause();" id="pause" class="btn">Pause</button>
+  <button onclick="reset();" id="reset" class="btn">Reset</button>
+  <h3 id="time">0m</h3>
+
+  <script src="script.js"></script>
+  <script>
+
+var time = 0;
+var count = false;
+
+if (window.Worker) {
+  console.log("Workers available!");
+
+  var w = new Worker("script.js");
+  var m = { current:time }
+  w.postMessage(m)
+
+}
+else {
+  alert("Workers are not available!");
+  dkog();
+}
+
+w.onmessage = function(m) {
+  time = m.result;
+  w.postMessage(m)
+}
+
+function start() {
+  w.postMessage(m)
+  updateDisplay()
+
+  count = true;
+}
+
+function pause() {
+  count = false;
+}
+
+function reset() {
+  time = 0;
+  updateDisplay();
+  count = false;
+}
+
+function updateDisplay() {
+  var timer = document.getElementById("time");
+  timer.innerText = time + "m";
+}
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+#start {
+  background-color: #0f0;
+}
+#pause {
+  background-color: #f90;
+}
+#reset {
+  background-color: #f00;
+}
+.btn {
+  padding: 3px 15px;
+}

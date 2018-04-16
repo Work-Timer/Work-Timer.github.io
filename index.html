@@ -12,50 +12,42 @@
   <button onclick="reset();" id="reset" class="btn">Reset</button>
   <h3 id="time">0m</h3>
 
-  <script src="script.js"></script>
   <script>
-
-var time = 0;
-var count = false;
-
+var localTime = 0;
 if (window.Worker) {
   console.log("Workers available!");
 
   var w = new Worker("script.js");
-  var m = { current:time }
-  w.postMessage(m)
 
 }
 else {
-  alert("Workers are not available!");
-  dkog();
+	alert("Workers are not available!");
+	dkoghgjkfghjd__KauseError;
 }
 
 w.onmessage = function(m) {
-  time = m.result;
-  w.postMessage(m)
+	localTime = m.data;
+	updateDisplay();
 }
 
 function start() {
-  w.postMessage(m)
-  updateDisplay()
-
-  count = true;
+	w.postMessage("start")
+	updateDisplay()
+	console.log("started");
 }
-
 function pause() {
-  count = false;
+	w.postMessage("pause");
+	console.log("paused");
 }
-
 function reset() {
-  time = 0;
-  updateDisplay();
-  count = false;
+	time = 0;
+	w.postMessage("reset");
+	updateDisplay();
+	console.log("resetted");
 }
-
 function updateDisplay() {
-  var timer = document.getElementById("time");
-  timer.innerText = time + "m";
+	var timer = document.getElementById("time");
+	timer.innerText = localTime + "m";
 }
 
   </script>
